@@ -1,3 +1,12 @@
+@font-face {
+  font-family: 'TalkativeAngel';
+  src: url('TalkativeAngel.ttf')  format('truetype'), /* Safari, Android, iOS */
+  }
+
+body {
+  font-family: 'TalkativeAngel', Fallback, sans-serif;
+}
+
 .clickable{
   color: red;
   font-size: 14px;
