@@ -13,7 +13,7 @@ body {
   position: absolute;
   top: 0;
   left: 0;
-  background-color: red;
+  background-color: #c32f34;
   height: 250px;
   width: 250px;
   -webkit-border-radius: 250px;
@@ -26,13 +26,32 @@ body {
   left: 0;
 }
 .head{
+  position: absolute;
+  top: 62px;
+  left: 94px;
   height: 42px;
   width: 60px;
   background-color: white;
   border-radius: 3px;
 }
-.chest{}
-.torso{}
+.shoulders{
+  position: absolute;
+  top: 109px;
+  left: 67px;
+  height: 24px;
+  width: 110px;
+  background-color: white;
+  border-radius: 3px;
+
+}
+.torso{
+  position: absolute;
+  top: 133px;
+  left: 90px;
+  height: 52px;
+  width: 64px;
+  background-color: white;
+}
 .layer3{
   position: absolute;
   height: 250px;
