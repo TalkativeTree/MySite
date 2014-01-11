@@ -4,8 +4,17 @@ body {
   background-color: white;
 }
 .backdrop{
+  position: relative;
+  background-color: white;
+  height: 250px;
+  width: 250px;
+}
+.background-circle{
+  position: absolute;
+  top: 0;
+  left: 0;
   background-color: red;
-    height: 250px;
+  height: 250px;
   width: 250px;
    -moz-border-radius: 250px;
    -webkit-border-radius: 250px;
