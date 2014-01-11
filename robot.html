@@ -8,41 +8,42 @@
   <script type="text/javascript" src="robot.js"></script>
 </head>
 <body>
+  <div class="backdrop">
   <!-- layer 0 has the thought waves coming from the head -->
+    <section class="layer0">
+      <div class="little wave"></div>
+      <div class="medium wave"></div>
+      <div class="big wave"></div>
+    </section>
 
-  <section class="layer">
-    <div class="little wave"></div>
-    <div class="medium wave"></div>
-    <div class="big wave"></div>
-  </section>
+    <!-- layer 1 should have the head, shoulders, and torso -->
+    <section class="layer1">
+      <div class="head"></div>
+      <div class="chest"></div>
+      <div class="torso"></div>
+    </section>
 
-  <!-- layer 1 should have the head, shoulders, and torso -->
-  <section class="layer">
-    <div class="head"></div>
-    <div class="chest"></div>
-    <div class="torso"></div>
-  </section>
-
-  <!-- layer 2 should have all the moving parts: eyes, legs, arms -->
-  <section class="layer">
-    <div class="eyes">
-      <div class="left eye"></div>
-      <div class="right eye"></div>
-    </div>
-    <div class="left-arm arm">
-        <div class="hand"></div>
-        <div class="hand-border"></div>
-        <div class="forearm"></div>
-        <div class="joint"></div>
-    </div>
-    <div class="right-arm arm">
-        <div class="hand"></div>
-        <div class="hand-border"></div>
-        <div class="forearm"></div>
-        <div class="joint"></div>
-    </div>
-    <div class="right-arm"></div>
-    <div class="left-leg"></div>
-    <div class="right-leg"></div>
-  </section>
+    <!-- layer 2 should have all the moving parts: eyes, legs, arms -->
+    <section class="layer3">
+      <div class="eyes">
+        <div class="left eye"></div>
+        <div class="right eye"></div>
+      </div>
+      <div class="left-arm arm">
+          <div class="hand"></div>
+          <div class="hand-border"></div>
+          <div class="forearm"></div>
+          <div class="joint"></div>
+      </div>
+      <div class="right-arm arm">
+          <div class="hand"></div>
+          <div class="hand-border"></div>
+          <div class="forearm"></div>
+          <div class="joint"></div>
+      </div>
+      <div class="right-arm"></div>
+      <div class="left-leg"></div>
+      <div class="right-leg"></div>
+    </section>
+  </div>
 </body>
