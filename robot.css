@@ -60,27 +60,44 @@ body {
   left: 0;
 }
 .arm{
-  position: relative;
-  height:69px;
-  width:27px;
+  position: absolute;
+  background-color: blue;
+  z-index: 12;
+  top:   61px;
+  height:64px;
+  width:  3px;
    -webkit-transform: rotate(-180deg);
       -moz-transform: rotate(-180deg);
        -ms-transform: rotate(-180deg);
         -o-transform: rotate(-180deg);
            transform: rotate(-180deg);
+   -webkit-transform-origin: 100% 100%;
+      -moz-transform-origin: 100% 100%;
+       -ms-transform-origin: 100% 100%;
+        -o-transform-origin: 100% 100%;
+           transform-origin: 100% 100%;
 }
 .left-arm{
-  left: 10px;
+  left: 70px;
+   -webkit-transform: rotate(-180deg);
+      -moz-transform: rotate(-180deg);
+       -ms-transform: rotate(-180deg);
+        -o-transform: rotate(-180deg);
+           transform: rotate(-180deg);
+   -webkit-transform-origin: bottom right;
+      -moz-transform-origin: bottom right;
+       -ms-transform-origin: bottom right;
+        -o-transform-origin: bottom right;
+           transform-origin: bottom right;
 }
 .right-arm{
-  top: -69px;
-  left: 100px;
+  left: 163px;
 
 }
 .hand-border {
    position:absolute;
-    top:0;
-    left:0;
+    top:-1px;
+    left:-12px;
     width: 13px;
    height: 13px;
    background: transparent;
@@ -88,14 +105,14 @@ body {
    -webkit-border-radius: 14px;
    border-radius: 14px;
     border-top: 6px solid transparent;
-    border-right: 6px solid red;
-    border-left: 6px solid red;
-    border-bottom: 6px solid red;
+    border-right: 6px solid #c32f34;
+    border-left: 6px solid #c32f34;
+    border-bottom: 6px solid #c32f34;
 }
 .hand{
    position:absolute;
-    top:1px;
-    left:1px;
+    top:0px;
+    left:-11px;
     width: 15px;
    height: 15px;
    background: transparent;
@@ -107,20 +124,21 @@ body {
     border-left: 4px solid white;
     border-bottom: 4px solid white;
 }
+
 .forearm{
   position: absolute;
-  left: 3px;
-  top: 20px;
+  left: -9px;
+  top: 19px;
   background-color: white;
   height: 37px;
   width: 17px;
-  border-left: 1px solid red;
-  border-right: 1px solid red;
+  border-left: 1px solid #c32f34;
+  border-right: 1px solid #c32f34;
 }
 .joint{
   position: absolute;
-  left: 4px;
-  top: 56px;
+  left: -8px;
+  top: 55px;
   background-color: white;
   height: 12px;
   width: 17px;
