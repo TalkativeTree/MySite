@@ -3,6 +3,9 @@ body {
   padding: 0;
   background-color: green;
 }
+.hide{
+  visibility: hidden;
+}
 .rotate_right{
   -webkit-transform-origin: top right;
      -moz-transform-origin: top right;
@@ -35,13 +38,24 @@ body {
      -moz-border-radius: 250px;
           border-radius: 250px;
 }
+.backdrop:hover .walk{
+  animation-name: walk;
+  -webkit-animation-name: walk;
+
+  animation-timing-function: ease-in-out;
+  -webkit-animation-timing-function: ease-in-out;
+}
 .layer{
   position: absolute;
   top: 0;
   left: 0;
 }
-/*______________________ LAYER 0 ______________________*/
 
+/*
+==============================================
+Layer 0
+==============================================
+*/
 .wave{
   position: absolute;
   visibility: hidden;
@@ -56,6 +70,9 @@ body {
   height: 50px;
   width: 50px;
   border-radius: 50px;
+
+  animation-duration: 3.5s;
+  -webkit-animation-duration: 3.5s;
 }
 .medium{
   top: 32px;
@@ -63,6 +80,9 @@ body {
   height: 70px;
   width: 70px;
   border-radius: 70px;
+
+  animation-duration: 3.5s;
+  -webkit-animation-duration: 3.5s;
 }
 .big{
   top: 22px;
@@ -70,6 +90,9 @@ body {
   height: 90px;
   width: 90px;
   border-radius: 90px;
+
+  animation-duration: 3.5s;
+  -webkit-animation-duration: 3.5s;
 }
 .left-triangle{
   position: absolute;
@@ -88,7 +111,13 @@ body {
   border-left: 100px solid transparent;
 }
 
-/*______________________ LAYER 1 ______________________*/
+
+/*
+==============================================
+Layer 1
+==============================================
+*/
+
 .head{
   position: absolute;
   top: 62px;
@@ -116,7 +145,12 @@ body {
   width: 65px;
   background-color: white;
 }
-/*______________________ LAYER 1 ______________________*/
+
+/*
+==============================================
+Layer 2
+==============================================
+*/
 
 .eye{
   position: absolute;
@@ -381,9 +415,8 @@ fadeIn
 .fadeIn{
   animation-name: fadeIn;
   -webkit-animation-name: fadeIn;
-
-  animation-duration: 1.5s;
-  -webkit-animation-duration: 1.5s;
+  animation-iteration-count: infinite;
+  -webkit-animation-iteration-count: infinite;
 
   animation-timing-function: ease-in-out;
   -webkit-animation-timing-function: ease-in-out;
@@ -395,9 +428,53 @@ fadeIn
   0% {
     transform: scale(0);
     opacity: 0.0;
+  }/*
+  60% {
+    transform: scale(0.8);
+    opacity: 0.6;
+  }
+  80% {
+    transform: scale(0.9);
+    opacity: 1;
+  }*/
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes fadeIn {
+  0% {
+    -webkit-transform: scale(0);
+    opacity: 0.0;
+  }/*
+  60% {
+    -webkit-transform: scale(0.8);
+    opacity: 0.6;
+  }
+  80% {
+    -webkit-transform: scale(0.9);
+    opacity: 1;
+  }*/
+  100% {
+    -webkit-transform: scale(1);
+    opacity: 1;
+  }
+}
+
+
+/*
+==============================================
+walk
+==============================================
+*/
+@keyframes walk {
+  0% {
+    transform: scale(0);
+    opacity: 0.0;
   }
   60% {
-    transform: scale(1.1);
+    transform: scale(1);
   }
   80% {
     transform: scale(0.9);
@@ -409,13 +486,13 @@ fadeIn
   }
 }
 
-@-webkit-keyframes fadeIn {
+@-webkit-keyframes walk {
   0% {
     -webkit-transform: scale(0);
     opacity: 0.0;
   }
   60% {
-    -webkit-transform: scale(1.1);
+    -webkit-transform: scale(1);
   }
   80% {
     -webkit-transform: scale(0.9);
