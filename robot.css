@@ -35,11 +35,56 @@ body {
      -moz-border-radius: 250px;
           border-radius: 250px;
 }
-.layer2{
+.layer{
   position: absolute;
   top: 0;
   left: 0;
 }
+.wave{
+  position: absolute;
+  background-color: transparent;
+  border-top: 6px solid white;
+  border-right: 6px solid transparent;
+  border-left: 6px solid transparent;
+}
+.little{
+  top: 42px;
+  left: 94px;
+  height: 50px;
+  width: 50px;
+  border-radius: 50px;
+}
+.medium{
+  top: 32px;
+  left: 84px;
+  height: 70px;
+  width: 70px;
+  border-radius: 70px;
+}
+.big{
+  top: 22px;
+  left: 74px;
+  height: 90px;
+  width: 90px;
+  border-radius: 90px;
+}
+.left-triangle{
+  position: absolute;
+  top: 24px;
+  left: 85px;
+  border-bottom: 140px solid #c32f34;
+  /*border-bottom: 140px solid red;*/
+  border-right: 100px solid transparent;
+}
+.right-triangle{
+  position: absolute;
+  top: 24px;
+  left: 65px;
+  border-bottom: 140px solid #c32f34;
+  /*border-bottom: 140px solid yellow;*/
+  border-left: 100px solid transparent;
+}
+
 .head{
   position: absolute;
   top: 62px;
@@ -66,13 +111,6 @@ body {
   height: 52px;
   width: 65px;
   background-color: white;
-}
-.layer3{
-  position: absolute;
-  height: 250px;
-  width: 250px;
-  top: 0;
-  left: 0;
 }
 .arm{
   position: absolute;
