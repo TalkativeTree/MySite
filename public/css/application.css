@@ -1,0 +1,10 @@
+@font-face {
+  font-family: 'TalkativeAngel';
+  src: url('TalkativeAngel.ttf')  format('truetype'), /* Safari, Android, iOS */
+  }
+
+body {
+  font-family: 'TalkativeAngel', Fallback, sans-serif;
+  margin: 0;
+  padding: 0;
+}
