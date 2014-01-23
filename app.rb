@@ -10,5 +10,16 @@ get '/stylesheets/:name.css' do
 end
 
 get "/" do
-  erb :"application"
+  @stylesheet = 'home'
+  erb :"home"
+end
+
+get "/about" do
+  @stylesheet = 'about'
+  erb :"about"
+end
+
+get "/portfolio" do
+  @stylesheet = 'portfolio'
+  erb :"portfolio"
 end
