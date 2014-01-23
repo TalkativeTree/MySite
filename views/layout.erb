@@ -5,8 +5,8 @@
     <title>TalkativeTree</title>
     <link rel="stylesheet" href="/css/normalize.css" media="screen" />
     <link rel="stylesheet" href="/css/application.css" media="screen" />
-    <link rel="stylesheet" href="/css/desc.css" media="screen" />
-    <link rel="stylesheet" href="/css/robot.css" media="screen" />
+    <link rel="stylesheet" href=<%="/css/"+"#{@stylesheet}" + ".css"%> media="screen" />
+
   </head>
 
   <body>
@@ -14,9 +14,5 @@
     <%= yield %>
 
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-    <script type="text/javascript" src="/js/kinetic-v5.0.0.min.js"></script>
-    <script type="text/javascript" src="/js/application.js"></script>
-    <script type="text/javascript" src="/js/desc.js"></script>
-    <script type="text/javascript" src="/js/robot.js"></script>
   </body>
 </html>
