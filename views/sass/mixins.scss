@@ -1,0 +1,71 @@
+@mixin rotate($degrees){
+  -webkit-transform: rotate($degrees);
+     -moz-transform: rotate($degrees);
+          transform: rotate($degrees);
+}
+@mixin vertical-align($top: 50%, $y: -50%){
+  position: relative;
+  top: $top;
+  -webkit-transform: translateY($y);
+  -ms-transform: translateY($y);
+  transform: translateY($y);
+}
+
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+     -moz-border-radius: $radius;
+      -ms-border-radius: $radius;
+       -o-border-radius: $radius;
+          border-radius: $radius;
+}
+
+@mixin circle($radius){
+  height: $radius;
+  width: $radius;
+  @include border-radius($radius);
+}
+
+@mixin pos-abs($top, $left){
+  position: absolute;
+  top: $top;
+  left: $left;
+}
+@mixin pos-rel($top, $right, $bottom, $left){
+  position: relative;
+  top: $top;
+  left: $left;
+}
+
+@mixin navBar {
+    ul { // note that the & isn't necessary here...
+        margin: 0 0 0 -0.25em;
+        border: none;
+
+        li {
+            display: inline-block;
+            margin: 0 0.25em;
+            a { border: none; }
+        }
+    }
+}
+
+@mixin inline-menu($type: inline, $child: li) {
+    @if $type == float {
+        overflow: hidden;
+    }
+
+    > #{$child} {
+        @if $type == float {
+            float: left;
+            //list-style: none;
+        } @else {
+            display: inline-block;
+        }
+
+        @content;
+
+        a {
+          white-space: nowrap
+        }
+    }
+}
