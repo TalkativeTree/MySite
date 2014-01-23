@@ -1,0 +1,37 @@
+.clickable{
+  color: red;
+}
+.expanding{
+  display: none;
+  -webkit-animation: fadein 1s; /* Safari and Chrome */
+     -moz-animation: fadein 1s; /* Firefox */
+      -ms-animation: fadein 1s; /* Internet Explorer */
+       -o-animation: fadein 1s; /* Opera */
+          animation: fadein 1s;
+}
+.expanded{
+  display: none;
+  -webkit-animation: fadein 1s; /* Safari and Chrome */
+     -moz-animation: fadein 1s; /* Firefox */
+      -ms-animation: fadein 1s; /* Internet Explorer */
+       -o-animation: fadein 1s; /* Opera */
+          animation: fadein 1s;
+}
+
+@keyframes fadein {
+  0% {
+    opacity: 0.0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes fadein {
+  0% {
+    opacity: 0.0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
