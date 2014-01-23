@@ -22,3 +22,8 @@
     height: 2em;
   }
 }
+
+*:before, *:after{
+  content: "";
+  position: relative;
+}
