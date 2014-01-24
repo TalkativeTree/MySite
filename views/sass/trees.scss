@@ -1,14 +1,6 @@
 @import "compass/css3";
 @import 'mixins';
-
-$bark-color: #E99D2D;
-$dark-bark: #6E2D18;
-$bark-shadow: #a86e1c;
-$light-leaves: #67bf95;
-$medium-leaves: #40a574;
-$dark-leaves: #1A7A75;
-$black: #333333;
-$light-black: #666666;
+@import 'colors';
 
 .tree{
   position: relative;
