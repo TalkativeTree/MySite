@@ -49,18 +49,28 @@ describe("LifeTimeModule", function(){
       year = new Year(start);
       inbetweenYear = new Year(inbetween);
       endYear = new Year(end_start, end);
+      testYears = [year, inbetween, endYear];
+    });
+
+    it("'s first month should match .beginning", function(){
+      testYears.forEach(function(year){
+        expect(year.MONTHS[year.beginning.getMonth()]).toEqual("February");
+      });
     });
 
     it("should have 12 months", function(){
-      expect(year.months.length).toEqual(12 - start.getMonth());
-      expect(inbetweenYear.months.length).toEqual(12);
+      testYears.forEach(function(year){
+        expect(year.months.length).toEqual(12);
+      });
     });
 
     it("should have 12 instances of months", function(){
-      for(i = 0; i < year.months.length; i++){
-        expect(year.months.length).toEqual(12);
-        expect(year.months[i].constructor.name).toEqual("Month");
-      }
+      testYears.forEach(function(year){});
+        for(i = 0; i < year.months.length; i++){
+          expect(year.months.length).toEqual(12);
+          expect(year.months[i].constructor.name).toEqual("Month");
+        }
+      });
     });
 
     it("should have a beginning", function(){
