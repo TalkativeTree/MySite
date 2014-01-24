@@ -13,26 +13,26 @@
   }
 }
 .life{
-  min-width:78em;
-  min-height: 12em;
-  background-color: $light-leaves;
+  min-width:234em;
+  min-height: 36em;
+  background-color: white;
   margin: 0;
   margin-bottom: 1em;
-
+  padding: 1em 1em 0 1em;
 }
 .year{
   position: relative;
-  width: 1em;
-  height: 12em;
+  width: 3em;
+  height: 36em;
   float: left;
   background-color: white;
 }
 .year:nth-child(2n+0){
-  top: 0.5em;
+  top: 1.5em;
 }
 .month-container{
-  height: 16px;
-  width: 16px;
+  height: 3em;
+  width: 3em;
 }
 .month{
   width: 100%;
@@ -41,12 +41,17 @@
   -moz-border-radius: 100%;
   -webkit-border-radius: 100%;
   border-radius: 100%;
-  background-color: solid transparent;
-  @include box-shadow(inset 0px 0px 1px 0px $light-black)
+  background-color: white;
+  @include box-shadow(inset 0px 0px 2px 0px $black)
 }
-.finished{
-  background-color: $light-black
+.nothing{
+  background-color: $black;
+  @include box-shadow(inset 0px 0px 2px 0px #000000)
 }
 .content{
-  background-color: $medium-leaves
+  background-color: $medium-leaves;
+}
+.event{
+  background-color: $dark-leaves;
+
 }
