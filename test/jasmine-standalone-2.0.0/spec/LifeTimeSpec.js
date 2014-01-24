@@ -1,92 +1,147 @@
-//================ MONTH ================ //
-describe("Month", function() {
-  var month;
-
-  beforeEach(function(){
-    month = new Month("January");
-  });
-
-  it("should have a name", function(){
-    expect(month.name).toEqual("January");
-  });
-});
-
-//================ YEAR ================ //
-
-describe("Year", function(){
-  var year, start;
+describe("LifeTimeModule", function(){
+  var start, inbetween, end, month, monthView, year, yearView, lifeTime;
 
   beforeEach(function(){
     start  = new Date("1986", "1", "21");
-    year = new Year(start);
+    inbetween = new Date("2010", "0", "1");
+    end_start = new Date("2064", "0", "1");
+    end = new Date("2064", "1", "21");
   });
 
-  it("should have 12 months", function(){
-    expect(year.months.length).toEqual(12);
-  });
+  //================ MONTH ================ //
+  describe("Month", function() {
 
-  it("should have 12 instances of months", function(){
-    for(var i = 0; i < 12; i++){
-      expect(year.months[i].constructor.name).toEqual("Month");
-    }
-  });
-
-  it("should have a beginning", function(){
-    expect(year.beginning).toBeTruthy();
-  });
-
-  it("beginning should be a Date", function(){
-    expect(year.beginning.constructor.name).toEqual("Date");
-  });
-});
-
-//================ LIFE TIME ================ //
-
-describe("LifeTime", function(){
-  var lifeTime, start;
-
-  beforeEach(function(){
-    start  = new Date("1986", "1", "21");
-    lifeTime = new LifeTime(start);
-    console.log(start, lifeTime);
-  });
-
-  it("should have a default length of 78", function(){
-    expect(lifeTime.LENGTH).toEqual(78);
-  });
-
-  it("should have a birthDay", function(){
-    expect(lifeTime.birthDay).toEqual(start.getDate());
-  });
-
-  it("should have a birthMonth", function(){
-    expect(lifeTime.birthMonth).toEqual(start.getMonth());
-  });
-
-  it("should have a birthYear", function(){
-    expect(lifeTime.birthYear).toEqual(start.getFullYear());
-  });
-
-  it("should have 78 years", function(){
-    expect(lifeTime.years.length).toEqual(78);
-  });
-
-  it("should have 78 instances of year", function(){
-    for(var i = 0; i < 78; i++){
-      expect(lifeTime.years[i].constructor.name).toEqual("Year");
-    }
-  });
-
-  it("should have years ranging from 1986-2063", function(){
-    for(var i = 0; i < 78; i++){
-      expect(lifeTime.years[i].beginning.getFullYear()).toEqual(1986 + i);
-    }
-  });
-
-  it("each year should beginning should match birthYear and birthMonth", function(){
-    lifeTime.years.forEach(function(year){
-      expect(year.beginning.getDate()).toEqual(lifeTime.birthDay);
-      expect(year.beginning.getMonth()).toEqual(lifeTime.birthMonth);
+    beforeEach(function(){
+      month = new Month("January");
     });
+
+    it("should have a name", function(){
+      expect(month.name).toEqual("January");
+    });
+
+    it("should have a view", function(){
+      expect(month.view).toBeTruthy();
+    });
+
+    it(".view should return a MonthView", function(){
+      expect(month.view.constructor.name).toEqual("MonthView");
+    });
+  });
+
+  //================ MONTH VIEW ================ //
+
+  describe("MonthView", function(){
+    beforeEach(function(){
+      monthView = new MonthView();
+    });
+
+
+    it("it should return div.month", function(){
+      console.log(monthView);
+      expect(monthView.template.hasClass("month")).toBeTruthy();
+    });
+  });
+
+  //================ YEAR ================ //
+
+  describe("Year", function(){
+    beforeEach(function(){
+      year = new Year(start);
+      inbetweenYear = new Year(inbetween);
+      endYear = new Year(end_start, end);
+    });
+
+    it("the number of months should equal 12 - start month", function(){
+      expect(year.months.length).toEqual(12 - start.getMonth());
+      expect(inbetweenYear.months.length).toEqual(12);
+    });
+
+    it("should have only instances of months", function(){
+      for(i = 0; i < year.months.length; i++){
+        expect(year.months[i].constructor.name).toEqual("Month");
+      }
+    });
+
+    it("should have a beginning", function(){
+      expect(year.beginning).toBeTruthy();
+    });
+
+    it("beginning should be a Date", function(){
+      expect(year.beginning.constructor.name).toEqual("Date");
+    });
+
+    it("birthYears should start with their bithdate", function(){
+      expect(year.beginning.getMonth()).toEqual(1);
+    });
+
+    it("inbetween should start with January", function(){
+      expect(endYear.beginning.getMonth()).toEqual(0);
+    });
+
+    it("endYear should start with January", function(){
+      expect(endYear.beginning.getMonth()).toEqual(0);
+    });
+
+    it("endYear should end with birthMonth", function(){
+      expect(endYear.beginning.getMonth()).toEqual(0);
+    });
+  });
+
+  //================ YEAR VIEW ================ //
+
+  describe("YearView", function(){
+    beforeEach(function(){
+      yearView = new YearView();
+    });
+
+    it("should up to 12 months", function(){});
+  });
+
+  //================ LIFE TIME ================ //
+
+  describe("LifeTime", function(){
+    beforeEach(function(){
+      start  = new Date("1986", "1", "21");
+      lifeTime = new LifeTime(start);
+      console.log(start, lifeTime);
+    });
+
+    it("should have a default length of 78", function(){
+      expect(lifeTime.LENGTH).toEqual(78);
+    });
+
+    it("should have a birthDay", function(){
+      expect(lifeTime.birthDay).toEqual(start.getDate());
+    });
+
+    it("should have a birthMonth", function(){
+      expect(lifeTime.birthMonth).toEqual(start.getMonth());
+    });
+
+    it("should have a birthYear", function(){
+      expect(lifeTime.birthYear).toEqual(start.getFullYear());
+    });
+
+    it("should have 78 years worth of months", function(){
+      expect(lifeTime.years.length).toEqual(79);
+    });
+
+    it("should have instances of year", function(){
+      for(i = 0; i < lifeTime.years.length; i++){
+        expect(lifeTime.years[i].constructor.name).toEqual("Year");
+      }
+    });
+
+    it("should have sequentially increasing years", function(){
+      for(i = 0; i < 78; i++){
+        expect(lifeTime.years[i].beginning.getFullYear()).toEqual(1986 + i);
+      }
+    });
+
+    it("should have years ranging from 1986-2064", function(){
+      expect(lifeTime.years[0].beginning.getFullYear()).toEqual(1986);
+      expect(lifeTime.years[77].beginning.getFullYear()).toEqual(2064);
+    });
+
   });
 });
