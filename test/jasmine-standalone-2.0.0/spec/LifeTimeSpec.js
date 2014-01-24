@@ -77,24 +77,16 @@ describe("LifeTimeModule", function(){
       expect(year.beginning).toBeTruthy();
     });
 
+    it("should have an end", function(){
+      expect(year.end).toBeTruthy();
+    });
+
     it("beginning should be a Date", function(){
       expect(year.beginning.constructor.name).toEqual("Date");
     });
 
-    it("birthYears should start with their bithdate", function(){
-      expect(year.beginning.getMonth()).toEqual(1);
-    });
-
-    it("inbetween should start with January", function(){
-      expect(endYear.beginning.getMonth()).toEqual(0);
-    });
-
-    it("endYear should start with January", function(){
-      expect(endYear.beginning.getMonth()).toEqual(0);
-    });
-
-    it("endYear should end with birthMonth", function(){
-      expect(endYear.beginning.getMonth()).toEqual(0);
+    it("end should be a Date", function(){
+      expect(year.end.constructor.name).toEqual("Date");
     });
   });
 
