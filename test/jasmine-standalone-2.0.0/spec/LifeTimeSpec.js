@@ -51,13 +51,14 @@ describe("LifeTimeModule", function(){
       endYear = new Year(end_start, end);
     });
 
-    it("the number of months should equal 12 - start month", function(){
+    it("should have 12 months", function(){
       expect(year.months.length).toEqual(12 - start.getMonth());
       expect(inbetweenYear.months.length).toEqual(12);
     });
 
-    it("should have only instances of months", function(){
+    it("should have 12 instances of months", function(){
       for(i = 0; i < year.months.length; i++){
+        expect(year.months.length).toEqual(12);
         expect(year.months[i].constructor.name).toEqual("Month");
       }
     });
@@ -123,7 +124,7 @@ describe("LifeTimeModule", function(){
     });
 
     it("should have 78 years worth of months", function(){
-      expect(lifeTime.years.length).toEqual(79);
+      expect(lifeTime.years.length).toEqual(78);
     });
 
     it("should have instances of year", function(){
