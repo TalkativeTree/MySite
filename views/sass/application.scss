@@ -23,7 +23,6 @@
   }
 }
 
-*:before, *:after{
-  content: "";
-  position: relative;
+body{
+  overflow: hidden;
 }

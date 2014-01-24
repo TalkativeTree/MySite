@@ -1,17 +1,51 @@
+@import 'mixins';
+
+$bark-color: #E99D2D;
+$light-leaves: #67bf95;
+$medium-leaves: #40a574;
+$dark-leaves: #1A7A75;
+$light-gray: #4B4B4B;
+
 .tree{
-    position: relative;
-    left:50px;
-    height: 600px;
-    width: 400px;
+  position: relative;
+  left:3em;
+  height: 30em;
+  width: 12em;
 }
 .bark{
-    position: absolute;
-    top: 200px;
-    width: 100px;
-    border-bottom: 300px solid brown;
-    border-left: 30px solid transparent;
-    border-right: 30px solid transparent;
+  position: absolute;
+  top: 10em;
+  width: 7em;
+  border-bottom: 20em solid $bark-color;
+  border-left: 1em solid transparent;
+  border-right: 1em solid transparent;
 }
 .leaves{
+  position: relative;
+  @include circle(8em);
+  left: 1em;
+  top: 1em;
+  background-color: $dark-leaves;
+  &:before, :after{
+    position: absolute;
+    @include circle(8em);
+  }
+  &:before{
+    top: 2em;
+    left: -3em;
+    background-color: $medium-leaves;
+  };
+  &:after{
+    top: 3em;
+    left: 2em;
+    background-color: $light-leaves;
+  }
+}
+
+.eyes{
+  &:before, :after{
+    @include circle(1em);
+    background-color: $light-gray;
+  }
 
 }
