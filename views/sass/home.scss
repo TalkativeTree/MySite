@@ -1,51 +1,48 @@
-@import 'mixins';
+.months{
+  float: left;
+  width: 5%;
+  min-height: 12em;
+  padding-right:0.5em;
+  & div{
+    font-size: 0.8em;
+    text-align: right;
+  }
+}
+.life{
+  min-width:78em;
+  min-height: 12em;
+  background-color: $light-leaves;
+  margin: 0;
+  margin-bottom: 1em;
 
-$bark-color: #E99D2D;
-$light-leaves: #67bf95;
-$medium-leaves: #40a574;
-$dark-leaves: #1A7A75;
-$light-gray: #4B4B4B;
-
-.tree{
+}
+.year{
   position: relative;
-  left:3em;
-  height: 30em;
-  width: 12em;
+  width: 1em;
+  height: 12em;
+  float: left;
+  background-color: white;
 }
-.bark{
-  position: absolute;
-  top: 10em;
-  width: 7em;
-  border-bottom: 20em solid $bark-color;
-  border-left: 1em solid transparent;
-  border-right: 1em solid transparent;
+.year:nth-child(2n+0){
+  top: 0.5em;
 }
-.leaves{
-  position: relative;
-  @include circle(8em);
-  left: 1em;
-  top: 1em;
-  background-color: $dark-leaves;
-  &:before, :after{
-    position: absolute;
-    @include circle(8em);
-  }
-  &:before{
-    top: 2em;
-    left: -3em;
-    background-color: $medium-leaves;
-  };
-  &:after{
-    top: 3em;
-    left: 2em;
-    background-color: $light-leaves;
-  }
+.month-container{
+  height: 16px;
+  width: 16px;
 }
-
-.eyes{
-  &:before, :after{
-    @include circle(1em);
-    background-color: $light-gray;
-  }
-
+.month{
+  width: 100%;
+  height:0;
+  padding-bottom: 100%;
+  -moz-border-radius: 100%;
+  -webkit-border-radius: 100%;
+  border-radius: 100%;
+  background-color: solid transparent;
+  @include box-shadow(inset 0px 0px 1px 0px $light-black)
+}
+.finished{
+  background-color: $light-black
+}
+.content{
+  background-color: $medium-leaves
 }
