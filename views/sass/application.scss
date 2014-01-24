@@ -10,18 +10,20 @@
   position: relative;
   @include navBar;
   height: 4em;
-  background-color: #4B4B4B;
-  background-color: rgba(0, 0 ,0, 0.7);
-  & ul a {
+  background-color: $medium-leaves;
+  // background-color: rgba(0, 0 ,0, 0.7);
+  ul {
 
-    & li {
-      @include vertical-align(0%, 75%);
-      color: #ededed;
+    a {
       width: 4em;
       height: 2em;
+      li {
+        @include vertical-align(0%, 90%);
+        color: #ededed;
+        width: 4em;
+        height: 2em;
+      }
     }
-    width: 4em;
-    height: 2em;
   }
 }
 
