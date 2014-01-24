@@ -1,0 +1,133 @@
+@import "compass/css3";
+@import 'mixins';
+
+$bark-color: #E99D2D;
+$dark-bark: #6E2D18;
+$bark-shadow: #a86e1c;
+$light-leaves: #67bf95;
+$medium-leaves: #40a574;
+$dark-leaves: #1A7A75;
+$black: #333333;
+$light-black: #666666;
+
+.tree{
+  position: relative;
+  left:3em;
+  height: 30em;
+  width: 12em;
+}
+.bark{
+  position: absolute;
+  top: 10em;
+  width: 6em;
+  border-bottom: 20em solid $bark-color;
+  border-left: 2em solid transparent;
+  border-right: 2em solid transparent;
+}
+
+.bark-shadow{
+  position: absolute;
+  top: 10em;
+  left: -0.1em;
+  width: 6.5em;
+  border-bottom: 20em solid $bark-shadow ;
+  border-left: 1.9em solid transparent;
+  border-right: 1.9em solid transparent;
+}
+.leaves{
+  position: relative;
+  @include circle(9em);
+  left: 1.5em;
+  top: 1em;
+  background-color: $dark-leaves;
+  &:before, &:after{
+    position: absolute;
+    content: "";
+    @include circle(9em);
+  }
+  &:before{
+    top: 1em;
+    left: -3em;
+    background-color: $medium-leaves;
+  };
+  &:after{
+    top: 2em;
+    left: 1em;
+    background-color: $light-leaves;
+  }
+}
+
+.eyes{
+  position: absolute;
+  left: 3em;
+  top: 15em;
+  &:before, &:after{
+    position: absolute;
+    content: "";
+  }
+}
+
+.left-eye{
+  position: absolute;
+  left: 3em;
+  top: 15em;
+  &:before, &:after{
+    position: absolute;
+    content: "";
+  }
+  &:before{
+    @include circle(1em);
+    background-color: $bark-color;
+    border: 2px solid $bark-shadow;
+  };
+  &:after{
+    top: 0.4em;
+    left: 0.5em;
+    @include circle(0.5em);
+    background-color: $dark-bark;
+  }
+}
+
+.right-eye{
+  position: absolute;
+  left: 6em;
+  top: 14.75em;
+  &:before, &:after{
+    position: absolute;
+    content: "";
+    @include circle(1em);
+  }
+  &:before{
+    @include circle(1em);
+    background-color: $bark-color;
+    border: 2px solid $bark-shadow;
+  };
+  &:after{
+    top: 0.4em;
+    left: 0.5em;
+    @include circle(0.5em);
+    background-color: $dark-bark;
+  }
+}
+
+.mouth{
+  position: absolute;
+  left: 3em;
+  top: 18em;
+  height: 3em;
+  width: 4em;
+  border-radius: 20px 20px 40px 40px / 10px 10px 30px 30px;
+  background-color: $dark-bark;
+  @include rotate(-5deg);
+  border: 2px solid $bark-shadow;
+}
+
+.teeth{
+  height: 40%;
+  width: 100%;
+}
+.upper{
+  border-radius: 40px 40px 20px 20px/30px 30px 10px 10px;
+  background-color: white;
+  @include rotate(-5deg);
+}
