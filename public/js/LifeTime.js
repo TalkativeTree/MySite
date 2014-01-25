@@ -4,19 +4,25 @@
 // Months
 // weeks
 // days
-
 function Month(name){
   this.name = name;
 }
+
+Month.prototype.constructor = "Month";
+// Month.prototype.view = new MonthView();
+// Month.prototype.draw = function(){
+//   this.view.render();
+// };
 
 //================================================//
 //==================== YEAR ======================//
 //================================================//
 
-function Year(start){
+function Year(start, end){
   this.beginning = start;
+  this.end = end;
   this.months = [];
-  this.init(start);
+  this.init(start, end);
 }
 
 Year.prototype = {
@@ -26,11 +32,18 @@ Year.prototype = {
     "May","June","July","August","September",
     "October","November","December"
   ],
-  init: function(start) {
-    var month;
-    for(var i = 0; i < this.MONTHS.length; i++){
+  draw: function(){
+    this.view.render();
+    this.months.forEach(function(month){
+      month.draw();
+    });
+  },
+  init: function(start, end) {
+    var months = this.MONTHS;
+    for(var i = 0; i < 12; i++){
       month = start.getMonth() + i;
-      this.months.push( new Month(this.MONTHS[month < 11 ? month : month - 11]) );
+      newMonth = new Month(this.MONTHS[month < 11 ? month : month - 11]);
+      this.months.push(newMonth);
     }
   }
 };
@@ -51,16 +64,19 @@ LifeTime.prototype = {
   constructor: LifeTime,
   LENGTH: 78,
   setYears: function(birthDate) {
-    var year;
-    for(var i = 0; i < this.LENGTH; i++){
-      var birthDay = new Date(
-        (birthDate.getFullYear() + i),
-        birthDate.getMonth(),
-        birthDate.getDate()
-      );
-
-      year = new Year(birthDay);
-      this.years.push(year);
+    var year, start, end, i;
+    for(i = 0; i < this.LENGTH; i++){
+      start = new Date(
+          birthDate.getFullYear() + i,
+          birthDate.getMonth(),
+          birthDate.getDate()
+        );
+        end = new Date(
+          birthDate.getFullYear() + i + 1,
+          birthDate.getMonth(),
+          birthDate.getDate()
+        );
+      this.years.push( new Year(start, end) );
     }
   },
   init: function(birthDate){
@@ -69,4 +85,43 @@ LifeTime.prototype = {
   start: function(){
     return this.years[0];
   }
+};
+
+
+
+function MonthView(){
+  this.template = $("<div>").addClass("month");
+}
+
+function YearView(year, months, LifeTimeView){
+  this.template = new YearViewTemplate(year);
+  this.months = months.map(function(month){
+    return new MonthView(month);
+  });
+}
+
+YearView.prototype = {
+  render: function(){
+
+  }
+};
+
+function YiewViewTemplate(year){
+  this.details = {
+    x: year.start.
+  }
+  return new Kinetic.Group();
+}
+
+function LifeTimeView(start){
+  this.layer = new Kinetic.Layer();
+  this.lifeTime = new LifeTime(start);
+}
+
+LifeTimeView.prototype = {
+  render: function(){
+    this.lifeTime.years.forEach(function(year){
+      year.draw();
+    });
+  },
 };
