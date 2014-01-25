@@ -1,11 +1,13 @@
 describe("LifeTimeModule", function(){
-  var start, inbetween, end, month, monthView, year, yearView, lifeTime;
+  var start, startEnd, inbetweenStart, inbetweenEnd, endStart, endEnd, month, monthView, year, yearView, lifeTime;
 
   beforeEach(function(){
     start  = new Date("1986", "1", "21");
-    inbetween = new Date("2010", "0", "1");
-    end_start = new Date("2064", "0", "1");
-    end = new Date("2064", "1", "21");
+    startEnd  = new Date("1987", "1", "21");
+    inbetweenStart = new Date("2010", "0", "1");
+    inbetweenEnd = new Date("2010", "12", "31");
+    endStart = new Date("2064", "0", "1");
+    endEnd = new Date("2064", "1", "21");
   });
 
   //================ MONTH ================ //
@@ -19,43 +21,27 @@ describe("LifeTimeModule", function(){
       expect(month.name).toEqual("January");
     });
 
-    it("should have a view", function(){
-      expect(month.view).toBeTruthy();
-    });
+    // it("should have a view", function(){
+    //   expect(month.view).toBeTruthy();
+    // });
 
-    it(".view should return a MonthView", function(){
-      expect(month.view.constructor.name).toEqual("MonthView");
-    });
-  });
-
-  //================ MONTH VIEW ================ //
-
-  describe("MonthView", function(){
-    beforeEach(function(){
-      monthView = new MonthView();
-    });
-
-
-    it("it should return div.month", function(){
-      console.log(monthView);
-      expect(monthView.template.hasClass("month")).toBeTruthy();
-    });
+    // it(".view should return a MonthView", function(){
+    //   expect(month.view.constructor.name).toEqual("MonthView");
+    // });
   });
 
   //================ YEAR ================ //
 
   describe("Year", function(){
     beforeEach(function(){
-      year = new Year(start);
-      inbetweenYear = new Year(inbetween);
-      endYear = new Year(end_start, end);
-      testYears = [year, inbetween, endYear];
+      year = new Year(start, startEnd);
+      inbetweenYear = new Year(inbetweenStart, inbetweenEnd);
+      testYears = [year, inbetweenYear];
     });
 
     it("'s first month should match .beginning", function(){
-      testYears.forEach(function(year){
-        expect(year.MONTHS[year.beginning.getMonth()]).toEqual("February");
-      });
+      expect(year.MONTHS[year.beginning.getMonth()]).toEqual("February");
+      expect(inbetweenYear.MONTHS[inbetweenYear.beginning.getMonth()]).toEqual("January");
     });
 
     it("should have 12 months", function(){
@@ -65,10 +51,10 @@ describe("LifeTimeModule", function(){
     });
 
     it("should have 12 instances of months", function(){
-      testYears.forEach(function(year){});
+      testYears.forEach(function(year){
         for(i = 0; i < year.months.length; i++){
           expect(year.months.length).toEqual(12);
-          expect(year.months[i].constructor.name).toEqual("Month");
+          expect(year.months[i].constructor).toEqual("Month");
         }
       });
     });
@@ -88,16 +74,14 @@ describe("LifeTimeModule", function(){
     it("end should be a Date", function(){
       expect(year.end.constructor.name).toEqual("Date");
     });
-  });
 
-  //================ YEAR VIEW ================ //
-
-  describe("YearView", function(){
-    beforeEach(function(){
-      yearView = new YearView();
+    it("should have a draw functions", function(){
+      expect(typeof(year.draw)).toEqual("function");
     });
 
-    it("should up to 12 months", function(){});
+    // it("should have a view", function(){
+    //   expect(this.view.constructor.name).toEqual("YearView");
+    // });
   });
 
   //================ LIFE TIME ================ //
@@ -141,10 +125,110 @@ describe("LifeTimeModule", function(){
       }
     });
 
-    it("should have years ranging from 1986-2064", function(){
+    it("should have years ranging a span of 78 years", function(){
       expect(lifeTime.years[0].beginning.getFullYear()).toEqual(1986);
-      expect(lifeTime.years[77].beginning.getFullYear()).toEqual(2064);
+      expect(lifeTime.years[77].end.getFullYear()).toEqual(2064);
+    });
+  });
+
+
+  //================ MONTH VIEW ================ //
+
+  describe("MonthView", function(){
+    beforeEach(function(){
+      monthView = new MonthView();
     });
 
+
+    it("it should return div.month", function(){
+      console.log(monthView);
+      expect(monthView.template.hasClass("month")).toBeTruthy();
+    });
+  });
+
+
+
+  //================ YEAR VIEW ================ //
+
+  describe("YearView", function(){
+    beforeEach(function(){
+      yearView = new YearView();
+    });
+
+    it("should belong to a lifeTimeView", function(){
+      expect(typeof(yearView.lifeTimeView)).toEqual("LifeTimeView");
+    });
+
+    it("should have a layer", function(){
+      expect(typeof(yearView.layer.nodeType)).toEqual("Layer");
+    });
+
+    it("should have an array of months", function(){
+      expect(typeof(yearView.months)).toEqual("Array");
+    });
+
+    it(".months should be MonthView isntances", function(){
+      yearView.months.forEach(function(month){
+        expect(typeof(month)).toEqual("MonthView");
+      });
+    });
+
+    it("should have a render functions", function(){
+      expect(typeof(yearView.render)).toEqual("function");
+    });
+  });
+
+  //============= LIFETIME VIEW ================ //
+  //============= LIFETIME VIEW ================ //
+  //============= LIFETIME VIEW ================ //
+
+  describe("LifeTimeView", function(){
+    beforeEach(function(){
+      lifeTimeView = new LifeTimeView(start);
+    });
+
+    it(".layer should be a Kinetic Layer insance", function(){
+      expect(lifeTimeView.layer.nodeType).toEqual("Layer");
+    });
+
+    it("should have a lifeTime", function(){
+      expect(lifeTimeView.lifeTime).toBeTruthy();
+    });
+
+    // it("should have a lifeTimeView", function(){
+    //   expect(lifeTimeView.view).toBeTruthy();
+    // });
+
+    // it("should render years' views", function(){
+    //   console.log("lifetimeViewyear", lifeTimeView.lifeTime.years[0]);
+    //   lifeTimeView.lifeTime.years.forEach(function(year){
+    //     spyOn(year, 'draw');
+    //     spyOn(year.view, 'render');
+    //   });
+    //   lifeTimeView.render();
+
+    //   lifeTimeView.lifeTime.years.forEach(function(year){
+    //     expect(year.view.render).toHaveBeenCalled();
+    //     expect(year.draw).toHaveBeenCalled();
+    //   });
+    // });
+  });
+
+  describe("YearViewTemplate", function(){
+    beforeEach(function(){
+      template = new YearViewTemplate();
+    });
+
+    it("should be a group", function(){
+      expect(template.nodeType).toEqual("Group");
+    });
+
+    it("should have details object with x, y, rotate", function(){
+      expect(template.details.x).toEqual();
+    });
+
+    it("should have details", function(){
+      expect();
+    });
   });
 });
