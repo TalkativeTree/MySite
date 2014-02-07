@@ -9,19 +9,20 @@
 .navBar{
   position: relative;
   @include navBar;
-  height: 4em;
-  background-color: $medium-leaves;
+  height: 2em;
+  background-color: $dark-leaves;
   // background-color: rgba(0, 0 ,0, 0.7);
+  font-family: 'Lato', sans-serif;
   ul {
 
     a {
       width: 4em;
-      height: 2em;
+      height: 1em;
       li {
-        @include vertical-align(0%, 90%);
+        @include vertical-align(100%, 50%);
         color: #ededed;
         width: 4em;
-        height: 2em;
+        height: 1em;
       }
     }
   }
