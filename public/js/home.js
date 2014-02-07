@@ -1,3 +1,9 @@
+(function(){
+  $(".letter").hover(function(){
+    this.classList.add('fall');
+  });
+})();
+
 function fillArray(elements, filler){
   array = [];
   for(var i = 0; i < elements; i++){
