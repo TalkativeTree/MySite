@@ -38,7 +38,7 @@
 
 @mixin navBar {
     ul { // note that the & isn't necessary here...
-        margin: 0 0 0 -0.25em;
+        margin: 0 0 0 0.25em;
         border: none;
         li {
             display: inline-block;
@@ -67,4 +67,8 @@
           white-space: nowrap
         }
     }
+}
+
+@mixin fall{
+
 }
