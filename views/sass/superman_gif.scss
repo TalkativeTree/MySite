@@ -1,0 +1,364 @@
+@mixin box-shadow($values){
+  -webkit-box-shadow: #{$values};
+     -moz-box-shadow: #{$values};
+          box-shadow: #{$values};
+}
+
+@function test($statement, $assertion, $expectation) {
+  @if $assertion != $expectation {
+    $result: "FAIL";
+    @return "____ #{$result} ____ " + $statement + " ____ Expected #{$assertion} to equal EXPECTATION: #{$expectation}";
+  }
+  @if $assertion == $expectation {
+    $result: "PASS";
+    @return "____ #{$result} ____ " + $statement;
+  }
+}
+
+$white: #dde6f1;
+$pink: #fcdee1;
+$shadow: #ebccce;
+
+$nipple: #e47b84;
+$hair: #090909;
+$crowngold: #f5d858;
+$shadedgold: #d5ba46;
+
+$light-gray: #bec2be;
+$silver: #b3b4b4;
+
+$light-blue: #1994c7;
+$blue: #1b4d97;
+$dark-blue: #184074;
+
+$red: #e72834;
+$darker-red: #c92838;
+
+$light-skin: #c1997c;
+$skin: #af8d76;
+$dark-skin: #b9957c;
+$darkest-skin: #95786a;
+
+
+$square-width: 6px;
+$sprite-width: 10;
+$sprite-height: 46;
+$t: transparent;
+
+* {
+  margin:0;
+  padding: 0;
+}
+
+#wrapper{
+ height: 600px;
+ width: 100%;
+ background-color: $pink;
+}
+
+@function adjust($blocks, $width: $square-width) {
+  @return $blocks * $width;
+}
+
+
+@function draw_pixel($vertical, $horizontal, $color) {
+  @return  "#{adjust($horizontal)} #{adjust($vertical)} #{$color}";
+}
+
+@debug test("adjust converts number of blocks into pixel equivaent", adjust(4),24px);
+
+@debug test("draw_pixel creates box-shadow based off of $width", draw_pixel(0, 1, $hair),"6px 0px #090909");
+
+
+@debug test("draw_pixel creates a number of box-shadow css output equal to the length", draw_pixel(0, 3, $hair),"18px 0px #090909");
+
+
+// @function draw_line($vertical, $margin, $length, $color) {
+//   $output: "";
+//   @for $i from 1 through $length {
+//     @if $i == $length { $output: $output + "#{adjust($margin + $i)} #{adjust($vertical * $i)} #{$color}"; }
+//     @if $i != $length { $output: $output + "#{adjust($margin + $i)} #{adjust($vertical * $i)} #{$color},"; }
+//   }
+//   @return $output;
+// }
+
+@function draw_line($vertical, $margin, $length, $color) {
+  $output: "";
+  $vertical: $vertical - 1;
+  @for $i from 1 through $length {
+    @if $i == $length { $output: $output + draw_pixel($vertical,$margin + $i,$color); }
+    @if $i != $length { $output: $output + draw_pixel($vertical,$margin + $i,$color) + ","; }
+  }
+  @return $output;
+}
+
+@debug test("function DRAW_LINE: creates box-shadow based off of $width", draw_line(1, 0, 1, $hair), "6px 0px #090909");
+
+@debug test("draw_line creates a number of box-shadow css output equal to the length",draw_line(1, 3, 3, $hair),"24px 0px #090909,30px 0px #090909,36px 0px #090909");
+
+@function draw_row($row_num, $lengths, $colors ){
+  $row: "";
+  $margin: nth($lengths, 1);
+  // @debug "ROW NUMBER: " + $row_num;
+  @for $i from 1 through length($lengths) {
+    $length: nth($lengths, $i);
+    $color: nth($colors, $i);
+    @if $color{
+      // @debug "length: " + $length;
+      // @debug "margin: " +$margin;
+      @if $i == length($lengths) {
+        $row: $row + draw_line($row_num, $margin, $length, $color);
+      }
+      @if $i != length($lengths) {
+        $row: $row + draw_line($row_num, $margin, $length, $color) + ",";
+      }
+      $margin: $margin + $length;
+    }
+
+  }
+
+  @return $row;
+}
+
+$state: "draw_row draws a pixel for each block";
+$assert: draw_row($row_num: 1, $lengths: (4,2,1,1), $colors: (null, $hair, $crowngold, $hair));
+$expect: "30px 0px #090909,36px 0px #090909,42px 0px #f5d858,48px 0px #090909";
+
+@debug test($state, $assert, $expect);
+
+// *****************************************
+//   ****** Clothed Wonder Woman *********
+// *****************************************
+
+//head - looking right
+$row1-head:  draw_row($row_num: 1,  $lengths: (4, 2, 1, 1), $colors: (null, $hair, $crowngold, $hair));
+$row2-head:  draw_row($row_num: 2,  $lengths: (3, 2, 1, 1, 1, 1), $colors: (null, $hair, $crowngold, $red,$crowngold, $hair));
+$row3-head:  draw_row($row_num: 3,  $lengths:(2,3,1,2,1), $colors:(null, $hair, $skin, $light-skin, $hair));
+$row4-head:  draw_row($row_num: 4,  $lengths:(3,2,1,1,1,1), $colors:(null, $hair, $light-blue, $light-skin, $light-blue, $hair));
+$row5-head:  draw_row($row_num: 5,  $lengths:(2,3,2,1,2), $colors:(null, $hair, $dark-skin, $light-skin, $hair));
+$row6-head:  draw_row($row_num: 6,  $lengths:(3,3,1,2), $colors:(null, $hair, $dark-skin, $hair));
+$row7-head:  draw_row($row_num: 7,  $lengths:(2,4,1,1), $colors:(null, $hair, $skin, $hair));
+$row8-head:  draw_row($row_num: 8,  $lengths:(2,4,1,2), $colors:(null, $hair, $light-skin, $hair));
+$row9-head:  draw_row($row_num: 9,  $lengths:(1,4,1,1,1), $colors:(null, $hair, $skin, $light-skin, $hair));
+$row10-head: draw_row($row_num: 10, $lengths:(3,1,1,1,2), $colors:(null, $hair, $darkest-skin, $hair, $light-skin));
+$row11-head: draw_row($row_num: 11, $lengths:(2,2,1,2,1,1), $colors:(null, $hair, $darkest-skin, $light-skin, $skin, $light-skin));
+
+
+//head - looking right
+$row1-turned:  draw_row($row_num: 1,  $lengths: (4, 1, 1, 2), $colors: (null, $hair, $crowngold, $hair));
+$row2-turned:  draw_row($row_num: 2,  $lengths: (3, 1, 1, 1, 1, 2), $colors: (null, $hair, $crowngold, $red,$crowngold, $hair));
+$row3-turned:  draw_row($row_num: 3,  $lengths:(3,1,1,2,3), $colors:(null, $hair, $skin, $light-skin, $hair));
+$row4-turned:  draw_row($row_num: 4,  $lengths:(3,1,1,1,1,2), $colors:(null, $hair, $light-blue, $light-skin, $light-blue, $hair));
+$row5-turned:  draw_row($row_num: 5,  $lengths:(3,1,2,1,3), $colors:(null, $hair, $dark-skin, $light-skin, $hair));
+$row6-turned:  draw_row($row_num: 6,  $lengths:(3,3,1,2), $colors:(null, $hair, $dark-skin, $hair));
+$row7-turned:  draw_row($row_num: 7,  $lengths:(4,2,1,3), $colors:(null, $hair, $skin, $hair));
+$row8-turned:  draw_row($row_num: 8,  $lengths:(4,2,1,3), $colors:(null, $hair, $light-skin, $hair));
+$row9-turned:  draw_row($row_num: 9,  $lengths:(3,2,1,1,4), $colors:(null, $hair, $skin, $light-skin, $hair));
+$row10-turned: draw_row($row_num: 10, $lengths:(2,2,1,1,1), $colors:(null, $hair, $darkest-skin, $hair, $light-skin));
+$row11-turned: draw_row($row_num: 11, $lengths:(2,2,1,2,1,1), $colors:(null, $hair, $darkest-skin, $light-skin, $skin, $light-skin));
+
+//clothed
+$clothed-row12: draw_row($row_num: 12, $lengths:(3,1,1,2,1,1,1), $colors:(null, $skin, $dark-skin, $crowngold, $shadedgold, $crowngold, $light-skin));
+$clothed-row13: draw_row($row_num: 13, $lengths:(2,2,1,1,1,1,1,1), $colors:(null, $skin, transparent, $shadedgold, $darker-red, $crowngold, transparent, $skin));
+$clothed-row14: draw_row($row_num: 14, $lengths:(2,1,2,1,1,1,1,1), $colors:(null, $light-skin, transparent, $darker-red, $red, $crowngold, transparent, $light-skin));
+$clothed-row15: draw_row($row_num: 15, $lengths:(1,1,3,1,1,1,1,1), $colors:(null,$dark-skin,transparent,$darker-red,$red,$crowngold,transparent,$skin));
+$clothed-row16: draw_row($row_num: 16, $lengths:(0,1,1,4,1,1,1,1), $colors:(null,$skin,$light-skin,transparent,$red,$crowngold,$t,$light-skin));
+$clothed-row17: draw_row($row_num: 17, $lengths:(0,1,5,1,1,1,1), $colors:(null,$silver,$t,$red,$crowngold,$t,$light-skin));
+$clothed-row18: draw_row($row_num: 18, $lengths:(1,1,1,3,1,1,1,1), $colors:(null,$silver,$light-gray,$t,$darker-red,$crowngold,$t,$light-skin));
+$clothed-row19: draw_row($row_num: 19, $lengths:(2,1,1,1,1,2,1,1), $colors:(null,$silver,$dark-skin,$dark-blue,$shadedgold,$crowngold,$t,$light-gray));
+$clothed-row20: draw_row($row_num: 20, $lengths:(3,1,2,1,1,1,1), $colors:(null,$dark-skin,$dark-blue,$shadedgold,$crowngold,$blue,$light-gray));
+$clothed-row21: draw_row($row_num: 21, $lengths:(3,1,1,1,2,1,1), $colors:(null,$dark-blue,$white,$dark-blue,$blue,$white,$light-gray));
+$clothed-row22: draw_row($row_num: 22, $lengths:(3,3,1,2,1), $colors:(null,$dark-blue,$white,$blue,$white,$light-gray));
+$clothed-row23: draw_row($row_num: 23, $lengths:(3,1,2,1,1,2), $colors:(null,$darkest-skin,$dark-skin,$dark-blue,$skin,$light-skin));
+
+//naked
+$naked-row12: draw_row($row_num: 12,
+              $lengths:(3,1,1,1,1,1,1,1),
+              $colors:(null, $skin, $dark-skin, $nipple, $light-skin, $skin, $nipple, $light-skin));
+$naked-row13: draw_row($row_num: 13,
+              $lengths:(2,2,1,1,1,1,1,1),
+              $colors:(null, $skin, transparent, $darkest-skin, $skin, $light-skin, transparent, $light-skin));
+$naked-row14: draw_row($row_num: 14,
+              $lengths:(2,1,2,1,2,1,1),
+              $colors:(null, $light-skin, transparent, $skin,$light-skin, transparent, $light-skin));
+$naked-row15: draw_row($row_num: 15,
+              $lengths:(1,1,3,1,2,1,1),
+              $colors:(null,$dark-skin,transparent,$skin,$light-skin,transparent,$light-skin));
+$naked-row16: draw_row($row_num: 16,
+              $lengths:(0,1,1,4,2,1,1),
+              $colors:(null,$skin,$light-skin,transparent,$light-skin,$t,$light-skin));
+$naked-row17: draw_row($row_num: 17,
+              $lengths:(0,1,5,1,1,1,1),
+              $colors:(null,$silver,$t,$skin,$light-skin,$t,$light-skin));
+$naked-row18: draw_row($row_num: 18,
+              $lengths:(1,1,1,3,1,1,1,1),
+              $colors:(null,$silver,$light-gray,$t,$skin,$light-skin,$t,$light-skin));
+$naked-row19: draw_row($row_num: 19,
+              $lengths:(2,1,1,1,1,2,1,1),
+              $colors:(null,$silver,$dark-skin,$t,$skin,$light-skin,$t,$light-gray));
+$naked-row20: draw_row($row_num: 20,
+              $lengths:(3,1,1,1,2,1,1),
+              $colors:(null,$dark-skin,$skin,$dark-skin,$light-skin,$skin,$light-gray));
+$naked-row21: draw_row($row_num: 21,
+              $lengths:(3,2,1,2,1,1),
+              $colors:(null,$darkest-skin,$skin,$light-skin,$skin,$light-gray));
+$naked-row22: draw_row($row_num: 22,
+              $lengths:(3,1,1,1,1,1,1),
+              $colors:(null,$darkest-skin,$skin,$light-skin,$hair,$skin,$light-gray));
+$naked-row23: draw_row($row_num: 23,
+              $lengths:(3,1,2,1,3),
+              $colors:(null,$darkest-skin,$skin,$hair,$skin,$light-skin));
+
+//legs
+$row24-legs: draw_row($row_num: 24, $lengths:(4,1,1,1,1,2), $colors:(null,$skin,$light-skin,$t,$skin,$light-skin));
+$row25-legs: draw_row($row_num: 25, $lengths:(4,1,1,1,1,1), $colors:(null,$skin,$light-skin,$t,$skin,$light-skin));
+$row26-legs: draw_row($row_num: 26, $lengths:(4,1,1,1,1,1), $colors:(null,$skin,$light-skin,$t,$skin,$light-skin));
+$row27-legs: draw_row($row_num: 27, $lengths:(4,1,1,1,1,1), $colors:(null,$skin,$light-skin,$t,$skin,$light-skin));
+$row28-legs: draw_row($row_num: 28, $lengths:(4,1,1,1,1,1), $colors:(null,$skin,$light-skin,$t,$skin,$light-skin));
+$row29-legs: draw_row($row_num: 29, $lengths:(4,1,1,1,1), $colors:(null,$skin,$light-skin,$t,$skin));
+$row30-legs: draw_row($row_num: 30, $lengths:(4,1,2,1), $colors:(null,$skin,$t,$skin));
+$row31-boots: draw_row($row_num: 31, $lengths:(4,1,2,1), $colors:(null,$darker-red,$t,$red));
+$row32-boots: draw_row($row_num: 32, $lengths:(4,1,2,1), $colors:(null,$red,$t,$red));
+$row33-boots: draw_row($row_num: 33, $lengths:(4,1,2,1), $colors:(null,$darker-red,$t,$red));
+$row34-boots: draw_row($row_num: 34, $lengths:(4,1,2,1), $colors:(null,$red,$t,$red));
+$row35-boots: draw_row($row_num: 35, $lengths:(4,1,2,1), $colors:(null,$darker-red,$t,$darker-red));
+$row36-boots: draw_row($row_num: 36, $lengths:(4,1,2,1), $colors:(null,$darker-red,$t,$red));
+$row37-boots: draw_row($row_num: 37, $lengths:(0,4,1,2,1,1), $colors:(null,$shadow, $darker-red, $shadow, $darker-red, $shadow));
+
+@function draw_8bit($rows...){
+  $shadow: "";
+  @for $i from 1 through length($rows){
+    @if $i != length($rows){$shadow: $shadow + nth($rows, $i) + ",";}
+    @if $i == length($rows){$shadow: $shadow + nth($rows, $i) + ";";}
+  }
+
+  @return $shadow;
+}
+
+$clothed-wonder: draw_8bit($row1-head, $row2-head, $row3-head, $row4-head, $row5-head, $row6-head, $row7-head, $row8-head, $row9-head, $row10-head, $row11-head, $clothed-row12, $clothed-row13, $clothed-row14, $clothed-row15, $clothed-row16, $clothed-row17, $clothed-row18, $clothed-row19, $clothed-row20, $clothed-row21, $clothed-row22, $clothed-row23, $row24-legs, $row25-legs, $row26-legs, $row27-legs, $row28-legs, $row29-legs, $row30-legs, $row31-boots, $row32-boots, $row33-boots, $row34-boots, $row35-boots, $row36-boots, $row37-boots);
+
+$naked-wonder: draw_8bit($row1-head, $row2-head, $row3-head, $row4-head, $row5-head, $row6-head, $row7-head, $row8-head, $row9-head, $row10-head, $row11-head, $naked-row12, $naked-row13, $naked-row14, $naked-row15, $naked-row16, $naked-row17, $naked-row18, $naked-row19, $naked-row20, $naked-row21, $naked-row22, $naked-row23, $row24-legs, $row25-legs, $row26-legs, $row27-legs, $row28-legs, $row29-legs, $row30-legs, $row31-boots, $row32-boots, $row33-boots, $row34-boots, $row35-boots, $row36-boots, $row37-boots);
+
+$turned-wonder: draw_8bit($row1-turned, $row2-turned, $row3-turned, $row4-turned, $row5-turned, $row6-turned, $row7-turned, $row8-turned, $row9-turned, $row10-turned, $row11-turned, $clothed-row12, $clothed-row13, $clothed-row14, $clothed-row15, $clothed-row16, $clothed-row17, $clothed-row18, $clothed-row19, $clothed-row20, $clothed-row21, $clothed-row22, $clothed-row23, $row24-legs, $row25-legs, $row26-legs, $row27-legs, $row28-legs, $row29-legs, $row30-legs, $row31-boots, $row32-boots, $row33-boots, $row34-boots, $row35-boots, $row36-boots, $row37-boots);
+
+// @debug $clothed-wonder;
+// @debug $naked-wonder;
+@debug $turned-wonder;
+
+
+#wonder-woman{
+  height: $square-width;
+  width: $square-width;
+  background: transparent;
+  -webkit-animation: head_turn 5s infinite; /* Safari 4+ */
+  -moz-animation:    head_turn 5s infinite; /* Fx 5+ */
+  -o-animation:      head_turn 5s infinite; /* Opera 12+ */
+  animation:         head_turn 5s infinite; /* IE 10+ */
+
+}
+
+
+@-webkit-keyframes head_turn {
+  0% {
+    @include box-shadow( $clothed-wonder );
+  }
+  50% {
+    @include box-shadow( $clothed-wonder );
+  }
+  50.000001%{
+    @include box-shadow( $naked-wonder );
+  }
+  65%{
+    @include box-shadow( $naked-wonder );
+  }
+  65.000001%{
+    @include box-shadow( $clothed-wonder );
+  }
+  85%{
+    @include box-shadow( $clothed-wonder );
+  }
+  85.000001%{
+    @include box-shadow( $turned-wonder );
+  }
+  100% {
+    @include box-shadow( $turned-wonder );
+  }
+}
+@-moz-keyframes head_turn {
+  0% {
+    @include box-shadow( $clothed-wonder );
+  }
+  50% {
+    @include box-shadow( $clothed-wonder );
+  }
+  50.000001%{
+    @include box-shadow( $naked-wonder );
+  }
+  65%{
+    @include box-shadow( $naked-wonder );
+  }
+  65.000001%{
+    @include box-shadow( $clothed-wonder );
+  }
+  85%{
+    @include box-shadow( $clothed-wonder );
+  }
+  85.000001%{
+    @include box-shadow( $turned-wonder );
+  }
+  100% {
+    @include box-shadow( $turned-wonder );
+  }
+}
+@-o-keyframes head_turn {
+  0% {
+    @include box-shadow( $clothed-wonder );
+  }
+  50% {
+    @include box-shadow( $clothed-wonder );
+  }
+  50.000001%{
+    @include box-shadow( $naked-wonder );
+  }
+  65%{
+    @include box-shadow( $naked-wonder );
+  }
+  65.000001%{
+    @include box-shadow( $clothed-wonder );
+  }
+  85%{
+    @include box-shadow( $clothed-wonder );
+  }
+  85.000001%{
+    @include box-shadow( $turned-wonder );
+  }
+  100% {
+    @include box-shadow( $turned-wonder );
+  }
+}
+@keyframes head_turn {
+  0% {
+    @include box-shadow( $clothed-wonder );
+  }
+  50% {
+    @include box-shadow( $clothed-wonder );
+  }
+  50.000001%{
+    @include box-shadow( $naked-wonder );
+  }
+  65%{
+    @include box-shadow( $naked-wonder );
+  }
+  65.000001%{
+    @include box-shadow( $clothed-wonder );
+  }
+  85%{
+    @include box-shadow( $clothed-wonder );
+  }
+  85.000001%{
+    @include box-shadow( $turned-wonder );
+  }
+  100% {
+    @include box-shadow( $turned-wonder );
+  }
+}
